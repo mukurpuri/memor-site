@@ -3,15 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Memor — Understand Software</title>
-
+    <title>Memor — Understand What Cursor Just Did</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-
     <style>
       * {
         margin: 0;
@@ -21,51 +19,33 @@
 
       body {
         font-family: "Inter", sans-serif;
-        background: #050505;
-        color: white;
-        overflow-x: hidden;
-        line-height: 1.5;
-      }
-
-      .bg-glow {
-        position: fixed;
-        inset: 0;
-        background:
-          radial-gradient(
-            circle at top,
-            rgba(88, 101, 242, 0.22),
-            transparent 35%
-          ),
-          radial-gradient(
-            circle at bottom right,
-            rgba(255, 255, 255, 0.06),
-            transparent 30%
-          );
-        pointer-events: none;
-        z-index: -1;
+        background: #0a0a0a;
+        color: #f5f5f5;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
       }
 
       .container {
         width: 100%;
-        max-width: 1250px;
+        max-width: 1180px;
         margin: 0 auto;
-        padding: 0 32px;
+        padding: 0 24px;
       }
 
-      header {
+      nav {
         position: sticky;
         top: 0;
-        z-index: 100;
-        backdrop-filter: blur(20px);
-        background: rgba(5, 5, 5, 0.72);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(12px);
+        background: rgba(10, 10, 10, 0.75);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        z-index: 20;
       }
 
-      .navbar {
+      .nav-inner {
+        height: 72px;
         display: flex;
-        justify-content: space-between;
         align-items: center;
-        padding: 22px 0;
+        justify-content: space-between;
       }
 
       .logo {
@@ -73,14 +53,13 @@
         align-items: center;
         gap: 12px;
         font-weight: 700;
-        font-size: 20px;
-        letter-spacing: -0.04em;
+        font-size: 18px;
       }
 
       .logo-box {
-        width: 38px;
-        height: 38px;
-        border-radius: 14px;
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
         background: white;
         color: black;
         display: flex;
@@ -91,518 +70,374 @@
 
       .nav-links {
         display: flex;
-        gap: 34px;
-        color: rgba(255, 255, 255, 0.58);
+        gap: 28px;
+        color: #b3b3b3;
         font-size: 14px;
-      }
-
-      .nav-links a {
-        color: inherit;
-        text-decoration: none;
-      }
-
-      .nav-links a:hover {
-        color: white;
       }
 
       .hero {
-        padding: 120px 0 100px;
+        padding: 110px 0 70px;
       }
 
-      .eyebrow {
-        display: inline-block;
-        padding: 10px 18px;
-        border-radius: 999px;
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
         border: 1px solid rgba(255, 255, 255, 0.08);
-        background: rgba(255, 255, 255, 0.04);
-        color: rgba(255, 255, 255, 0.62);
-        font-size: 14px;
-        margin-bottom: 30px;
+        background: rgba(255, 255, 255, 0.03);
+        color: #d4d4d4;
+        border-radius: 999px;
+        padding: 10px 16px;
+        font-size: 13px;
+        margin-bottom: 28px;
       }
 
       h1 {
-        font-size: clamp(56px, 10vw, 110px);
+        font-size: clamp(48px, 8vw, 92px);
         line-height: 0.95;
-        letter-spacing: -0.07em;
-        max-width: 1000px;
-        font-weight: 800;
-      }
-
-      .muted {
-        color: rgba(255, 255, 255, 0.35);
+        letter-spacing: -0.05em;
+        max-width: 980px;
+        margin-bottom: 28px;
       }
 
       .hero-sub {
-        margin-top: 36px;
-        font-size: 24px;
-        color: rgba(255, 255, 255, 0.62);
         max-width: 760px;
-        line-height: 1.45;
+        font-size: 22px;
+        color: #a3a3a3;
+        margin-bottom: 42px;
       }
 
-      .hero-buttons {
+      .cta-row {
         display: flex;
         gap: 16px;
-        margin-top: 42px;
         flex-wrap: wrap;
+        margin-bottom: 60px;
+      }
+
+      .btn-primary,
+      .btn-secondary {
+        padding: 15px 24px;
+        border-radius: 14px;
+        font-weight: 600;
+        font-size: 15px;
+        cursor: pointer;
+        transition: 0.2s ease;
       }
 
       .btn-primary {
         background: white;
         color: black;
         border: none;
-        border-radius: 18px;
-        padding: 18px 28px;
-        font-weight: 600;
-        font-size: 15px;
-        cursor: pointer;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-1px);
       }
 
       .btn-secondary {
-        background: rgba(255, 255, 255, 0.04);
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.12);
         color: white;
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 18px;
-        padding: 18px 28px;
-        font-weight: 500;
-        font-size: 15px;
-        cursor: pointer;
       }
 
-      .understanding-window {
-        margin-top: 90px;
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 36px;
-        overflow: hidden;
-        background: rgba(255, 255, 255, 0.03);
-        backdrop-filter: blur(20px);
-        box-shadow: 0 20px 80px rgba(0, 0, 0, 0.45);
-      }
-
-      .window-top {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        padding: 18px 24px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      }
-
-      .dot {
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.16);
-      }
-
-      .window-layout {
+      .hero-grid {
         display: grid;
-        grid-template-columns: 320px 1fr;
-        min-height: 650px;
+        grid-template-columns: 1fr 1fr;
+        gap: 26px;
+        margin-top: 40px;
       }
 
-      .sidebar {
-        border-right: 1px solid rgba(255, 255, 255, 0.08);
-        padding: 28px;
-        background: rgba(0, 0, 0, 0.22);
+      .panel {
+        background: #111111;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 24px;
+        overflow: hidden;
       }
 
-      .sidebar-label {
-        font-size: 12px;
-        text-transform: uppercase;
-        letter-spacing: 0.18em;
-        color: rgba(255, 255, 255, 0.35);
-        margin-bottom: 28px;
+      .panel-header {
+        padding: 18px 22px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        color: #9ca3af;
+        font-size: 13px;
       }
 
-      .system-card {
-        padding: 22px;
-        border-radius: 26px;
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        margin-bottom: 16px;
+      .panel-body {
+        padding: 24px;
       }
 
-      .system-title {
-        font-weight: 600;
-        margin-bottom: 8px;
-        display: flex;
-        justify-content: space-between;
-      }
-
-      .system-desc {
-        color: rgba(255, 255, 255, 0.52);
+      .code-block {
+        background: #0b0b0b;
+        border-radius: 16px;
+        padding: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.04);
         font-size: 14px;
-        line-height: 1.5;
+        color: #d4d4d4;
+        overflow-x: auto;
       }
 
-      .main-panel {
-        padding: 42px;
+      .problem {
+        color: #f87171;
+      }
+
+      .good {
+        color: #4ade80;
+      }
+
+      .flow {
         display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-      }
-
-      .file-pill {
-        display: inline-block;
-        padding: 10px 16px;
-        border-radius: 999px;
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        background: rgba(255, 255, 255, 0.04);
-        font-size: 12px;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.5);
-      }
-
-      .main-title {
-        margin-top: 30px;
-        font-size: clamp(36px, 5vw, 60px);
-        line-height: 1;
-        letter-spacing: -0.06em;
-        max-width: 760px;
-      }
-
-      .main-desc {
-        margin-top: 22px;
-        font-size: 20px;
-        color: rgba(255, 255, 255, 0.58);
-        line-height: 1.6;
-        max-width: 760px;
-      }
-
-      .journey-box {
-        margin-top: 60px;
-        padding: 28px;
-        border-radius: 28px;
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        background: rgba(0, 0, 0, 0.25);
-      }
-
-      .journey-label {
-        font-size: 12px;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.35);
-        margin-bottom: 24px;
-      }
-
-      .journey-flow {
-        display: flex;
-        gap: 14px;
-        flex-wrap: wrap;
         align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 20px;
       }
 
-      .flow-step {
-        padding: 14px 18px;
-        border-radius: 18px;
+      .flow-box {
         background: rgba(255, 255, 255, 0.04);
         border: 1px solid rgba(255, 255, 255, 0.08);
-        font-size: 15px;
-        white-space: nowrap;
+        padding: 12px 16px;
+        border-radius: 14px;
+        font-size: 14px;
+        color: #d4d4d4;
       }
 
       .arrow {
-        color: rgba(255, 255, 255, 0.2);
-        font-size: 22px;
+        color: #525252;
       }
 
-      section {
-        padding: 140px 0;
-        border-top: 1px solid rgba(255, 255, 255, 0.08);
+      .section {
+        padding: 110px 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
       }
 
-      .section-label {
-        font-size: 12px;
-        letter-spacing: 0.2em;
-        text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.35);
-        margin-bottom: 26px;
-      }
-
-      .section-title {
-        font-size: clamp(42px, 6vw, 72px);
+      .section h2 {
+        font-size: clamp(34px, 5vw, 60px);
         line-height: 1;
-        letter-spacing: -0.06em;
-        max-width: 1000px;
-      }
-
-      .section-text {
-        margin-top: 34px;
-        max-width: 780px;
-        color: rgba(255, 255, 255, 0.6);
-        font-size: 22px;
-        line-height: 1.7;
-      }
-
-      .feature-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 22px;
-        margin-top: 70px;
-      }
-
-      .feature-card {
-        padding: 34px;
-        border-radius: 30px;
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-      }
-
-      .feature-title {
-        font-size: 28px;
-        font-weight: 600;
-        margin-bottom: 18px;
         letter-spacing: -0.04em;
+        margin-bottom: 18px;
+        max-width: 800px;
       }
 
-      .feature-text {
-        color: rgba(255, 255, 255, 0.58);
-        line-height: 1.7;
-        font-size: 17px;
+      .section p {
+        max-width: 760px;
+        color: #a3a3a3;
+        font-size: 20px;
       }
 
-      footer {
-        padding: 60px 0;
-        border-top: 1px solid rgba(255, 255, 255, 0.08);
+      .three-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+        margin-top: 48px;
       }
 
-      .footer-content {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 20px;
-        flex-wrap: wrap;
+      .card {
+        background: #111111;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 22px;
+        padding: 28px;
       }
 
-      .footer-title {
-        font-size: 24px;
-        font-weight: 700;
-        letter-spacing: -0.05em;
+      .card h3 {
+        font-size: 20px;
+        margin-bottom: 12px;
       }
 
-      .footer-text {
-        margin-top: 8px;
-        color: rgba(255, 255, 255, 0.45);
+      .card p {
+        font-size: 16px;
+        color: #a3a3a3;
       }
 
-      @media (max-width: 980px) {
-        .window-layout {
+      .quote {
+        font-size: clamp(28px, 4vw, 54px);
+        line-height: 1.15;
+        letter-spacing: -0.04em;
+        max-width: 980px;
+      }
+
+      .footer {
+        padding: 80px 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+        color: #737373;
+        font-size: 14px;
+      }
+
+      @media (max-width: 900px) {
+        .hero-grid,
+        .three-grid {
           grid-template-columns: 1fr;
         }
 
-        .sidebar {
-          border-right: none;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        h1 {
+          line-height: 1;
         }
 
-        .nav-links {
-          display: none;
-        }
-
-        .main-panel {
-          padding: 28px;
-        }
-
-        .container {
-          padding: 0 22px;
+        .hero-sub,
+        .section p {
+          font-size: 18px;
         }
       }
     </style>
   </head>
   <body>
-    <div class="bg-glow"></div>
-
-    <header>
-      <div class="container navbar">
+    <nav>
+      <div class="container nav-inner">
         <div class="logo">
           <div class="logo-box">M</div>
           Memor
         </div>
 
         <div class="nav-links">
-          <a href="#problem">Problem</a>
-          <a href="#product">Product</a>
-          <a href="#vision">Vision</a>
+          <span>Problem</span>
+          <span>How it Works</span>
+          <span>Why Now</span>
         </div>
-
-        <button class="btn-primary">Join Waitlist</button>
       </div>
-    </header>
+    </nav>
 
-    <main>
-      <section class="hero">
-        <div class="container">
-          <div class="eyebrow">Built for developers who build software</div>
+    <section class="hero">
+      <div class="container">
+        <div class="badge">
+          Built for developers buried under AI-generated code
+        </div>
 
-          <h1>
-            AI writes code.
-            <br />
-            Memor helps you
-            <span class="muted">understand it.</span>
-          </h1>
+        <h1>
+          Cursor wrote the code.<br />
+          Memor helps you understand what actually happened.
+        </h1>
 
-          <p class="hero-sub">
-            Cursor helps developers do.
-            <br />
-            Memor helps developers see.
-          </p>
+        <p class="hero-sub">
+          Modern developers are shipping faster than they can mentally process.
+          Memor reconstructs the flow, connections, and consequences behind
+          generated code — before fear, confusion, and invisible bugs pile up.
+        </p>
 
-          <div class="hero-buttons">
-            <button class="btn-primary">Request Early Access</button>
-            <button class="btn-secondary">Watch Demo</button>
+        <div class="cta-row">
+          <button class="btn-primary">Request Early Access</button>
+          <button class="btn-secondary">See Real Workflow</button>
+        </div>
+
+        <div class="hero-grid">
+          <div class="panel">
+            <div class="panel-header">Before Memor</div>
+
+            <div class="panel-body">
+              <div class="code-block">
+                <span class="problem">✔ Task completed using Cursor</span
+                ><br /><br />
+                • PR merged<br />
+                • Backend connection unknown<br />
+                • Snowflake dependency invisible<br />
+                • Reviewer comments pasted into Claude<br />
+                • Fear of hidden production bugs<br /><br />
+
+                <span class="problem">Mental model: missing</span>
+              </div>
+            </div>
           </div>
 
-          <div class="understanding-window">
-            <div class="window-top">
-              <div class="dot"></div>
-              <div class="dot"></div>
-              <div class="dot"></div>
-            </div>
+          <div class="panel">
+            <div class="panel-header">With Memor</div>
 
-            <div class="window-layout">
-              <div class="sidebar">
-                <div class="sidebar-label">System Understanding</div>
+            <div class="panel-body">
+              <div class="code-block">
+                LatestExecutions.tsx<br /><br />
 
-                <div class="system-card">
-                  <div class="system-title">
-                    <span>Coverage Dashboard</span>
-                    <span
-                      style="color: rgba(255, 255, 255, 0.4); font-size: 13px"
-                      >active</span
-                    >
-                  </div>
-                  <div class="system-desc">
-                    Main frontend for QA coverage tracking.
-                  </div>
-                </div>
+                User opens dashboard → table renders here<br /><br />
 
-                <div class="system-card">
-                  <div class="system-title">
-                    <span>Coverage API</span>
-                    <span
-                      style="color: rgba(255, 255, 255, 0.4); font-size: 13px"
-                      >critical</span
-                    >
-                  </div>
-                  <div class="system-desc">
-                    Aggregates Snowflake coverage queries.
-                  </div>
-                </div>
+                Connected systems:<br />
+                • Hooks layer<br />
+                • Coverage API<br />
+                • Snowflake query service<br /><br />
 
-                <div class="system-card">
-                  <div class="system-title">
-                    <span>Queue Workers</span>
-                    <span
-                      style="color: rgba(255, 255, 255, 0.4); font-size: 13px"
-                      >stable</span
-                    >
-                  </div>
-                  <div class="system-desc">
-                    Processes background coverage refresh jobs.
-                  </div>
-                </div>
-              </div>
+                Touching this file can affect:<br />
+                • Sprint coverage view<br />
+                • Execution filters<br />
+                • Backend DTO contracts<br /><br />
 
-              <div class="main-panel">
-                <div>
-                  <div class="file-pill">LatestExecutions.tsx</div>
-
-                  <h2 class="main-title">
-                    You are editing a table connected to a Snowflake query.
-                  </h2>
-
-                  <p class="main-desc">
-                    This filter updates the Coverage API DTO which eventually
-                    modifies a Snowflake aggregation query.
-                  </p>
-                </div>
-
-                <div class="journey-box">
-                  <div class="journey-label">Runtime Journey</div>
-
-                  <div class="journey-flow">
-                    <div class="flow-step">User opens dashboard</div>
-                    <div class="arrow">→</div>
-                    <div class="flow-step">React Table</div>
-                    <div class="arrow">→</div>
-                    <div class="flow-step">Coverage API</div>
-                    <div class="arrow">→</div>
-                    <div class="flow-step">Snowflake Query</div>
-                    <div class="arrow">→</div>
-                    <div class="flow-step">Coverage Results</div>
-                  </div>
-                </div>
+                <span class="good">Mental model: visible</span>
               </div>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section id="problem">
-        <div class="container">
-          <div class="section-label">The Problem</div>
+    <section class="section">
+      <div class="container">
+        <h2>
+          Developers are now generating software faster than they can understand
+          it.
+        </h2>
 
-          <h2 class="section-title">
-            Developers are shipping code they do not understand.
-          </h2>
+        <p>
+          AI solved code generation. It did not solve developer cognition. Teams
+          are merging PRs they do not fully understand, relying on summaries
+          instead of mental models, and shipping systems that slowly become
+          invisible to the humans maintaining them.
+        </p>
 
-          <p class="section-text">
-            AI coding agents solved speed. They destroyed comprehension.
-            <br /><br />
-            Features get built in minutes. Mental models never get built at all.
-            <br /><br />
-            Memor reconstructs the understanding developers used to gain
-            naturally while building software slowly.
-          </p>
-        </div>
-      </section>
+        <div class="three-grid">
+          <div class="card">
+            <h3>See the flow</h3>
+            <p>
+              Understand where requests start, where data travels, and what
+              systems are connected before touching a single file.
+            </p>
+          </div>
 
-      <section id="vision">
-        <div class="container">
-          <div class="section-label">Philosophy</div>
+          <div class="card">
+            <h3>Understand generated code</h3>
+            <p>
+              Memor reconstructs the neighborhood around AI-generated changes so
+              developers regain architectural clarity.
+            </p>
+          </div>
 
-          <h2 class="section-title">
-            Memor is the cognitive layer between humans and AI-generated
-            software.
-          </h2>
-
-          <div class="feature-grid">
-            <div class="feature-card">
-              <div class="feature-title">Orientation</div>
-              <div class="feature-text">
-                Understand what the product does and where your task lives.
-              </div>
-            </div>
-
-            <div class="feature-card">
-              <div class="feature-title">Flow Awareness</div>
-              <div class="feature-text">
-                See how APIs, services, requests and systems connect together.
-              </div>
-            </div>
-
-            <div class="feature-card">
-              <div class="feature-title">Confident Shipping</div>
-              <div class="feature-text">
-                Know what your changes affect before the reviewer tells you.
-              </div>
-            </div>
+          <div class="card">
+            <h3>Ship with confidence</h3>
+            <p>
+              Know what can break, what depends on your changes, and why a
+              reviewer is asking something before fear takes over.
+            </p>
           </div>
         </div>
-      </section>
-    </main>
+      </div>
+    </section>
 
-    <footer>
-      <div class="container footer-content">
-        <div>
-          <div class="footer-title">Memor</div>
-          <div class="footer-text">
-            Built for developers who still want to understand what they build.
-          </div>
+    <section class="section">
+      <div class="container">
+        <h2>Memor is not another “AI coding assistant.”</h2>
+
+        <p>
+          Cursor and Claude are “Do” tools. Memor is a “See” tool. It exists to
+          restore developer understanding in a world where software is
+          increasingly generated faster than humans can mentally absorb.
+        </p>
+
+        <div class="flow">
+          <div class="flow-box">User action</div>
+          <div class="arrow">→</div>
+          <div class="flow-box">Generated code</div>
+          <div class="arrow">→</div>
+          <div class="flow-box">System flow reconstruction</div>
+          <div class="arrow">→</div>
+          <div class="flow-box">Mental clarity</div>
         </div>
+      </div>
+    </section>
 
-        <button class="btn-primary">Join Early Access</button>
+    <section class="section">
+      <div class="container">
+        <div class="quote">
+          “The problem is no longer writing software.<br />
+          The problem is staying mentally connected to what we are building.”
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        Memor.dev — rebuilding developer understanding in the AI era.
       </div>
     </footer>
   </body>
