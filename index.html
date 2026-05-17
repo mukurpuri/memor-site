@@ -1,0 +1,275 @@
+export default function MemorHomepage() { return (
+<div className="min-h-screen bg-black text-white overflow-hidden">
+  {/* Background */}
+  <div
+    className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(80,80,255,0.18),transparent_40%)]"
+  />
+
+  {/* Navbar */}
+  <header
+    className="relative z-10 flex items-center justify-between px-8 py-6 border-b border-white/10 backdrop-blur-xl"
+  >
+    <div className="flex items-center gap-3">
+      <div
+        className="w-9 h-9 rounded-2xl bg-white text-black flex items-center justify-center font-bold text-lg"
+      >
+        M
+      </div>
+      <span className="text-xl font-semibold tracking-tight">Memor</span>
+    </div>
+
+    <nav className="hidden md:flex items-center gap-8 text-sm text-white/70">
+      <a href="#problem" className="hover:text-white transition">Problem</a>
+      <a href="#product" className="hover:text-white transition">Product</a>
+      <a href="#developers" className="hover:text-white transition"
+        >Developers</a
+      >
+      <a href="#vision" className="hover:text-white transition">Vision</a>
+    </nav>
+
+    <button
+      className="rounded-2xl bg-white text-black px-5 py-2 text-sm font-medium hover:scale-[1.02] transition"
+    >
+      Join Waitlist
+    </button>
+  </header>
+
+  {/* Hero */}
+  <section className="relative z-10 px-8 pt-28 pb-24 max-w-7xl mx-auto">
+    <div className="max-w-5xl">
+      <div
+        className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/70 mb-8"
+      >
+        Built for developers who build software
+      </div>
+
+      <h1
+        className="text-5xl md:text-7xl leading-[0.95] tracking-tight font-semibold max-w-6xl"
+      >
+        AI writes code.
+        <br />
+        Memor helps you
+        <span className="text-white/40"> understand it.</span>
+      </h1>
+
+      <p
+        className="mt-8 text-lg md:text-2xl text-white/60 max-w-3xl leading-relaxed"
+      >
+        Cursor helps developers do.
+        <br />
+        Memor helps developers see.
+      </p>
+
+      <div className="mt-10 flex flex-wrap gap-4">
+        <button
+          className="rounded-2xl bg-white text-black px-6 py-4 font-medium hover:scale-[1.02] transition"
+        >
+          Request Early Access
+        </button>
+
+        <button
+          className="rounded-2xl border border-white/10 bg-white/5 px-6 py-4 text-white/80 hover:bg-white/10 transition"
+        >
+          Watch Product Demo
+        </button>
+      </div>
+    </div>
+
+    {/* Main Visual */}
+    <div
+      className="mt-24 rounded-[36px] border border-white/10 bg-white/[0.03] backdrop-blur-xl overflow-hidden shadow-2xl"
+    >
+      <div
+        className="border-b border-white/10 px-6 py-4 flex items-center gap-3 text-sm text-white/50"
+      >
+        <div className="w-3 h-3 rounded-full bg-white/20" />
+        <div className="w-3 h-3 rounded-full bg-white/20" />
+        <div className="w-3 h-3 rounded-full bg-white/20" />
+        <span className="ml-3">memor.dev</span>
+      </div>
+
+      <div className="grid lg:grid-cols-[340px_1fr] min-h-[620px]">
+        {/* Left */}
+        <div className="border-r border-white/10 p-6 bg-black/40">
+          <div
+            className="text-xs uppercase tracking-[0.2em] text-white/40 mb-6"
+          >
+            System Understanding
+          </div>
+
+          <div className="space-y-4">
+            {[ { title: 'Coverage Dashboard', desc: 'When QA opens latest test
+            coverage', status: 'active', }, { title: 'Coverage API', desc:
+            'Handles Snowflake aggregation queries', status: 'critical', }, {
+            title: 'Queue Workers', desc: 'Processes async coverage refresh
+            jobs', status: 'stable', }, ].map((item, index) => (
+            <div
+              key="{index}"
+              className="rounded-3xl border border-white/10 bg-white/[0.03] p-5 hover:bg-white/[0.06] transition cursor-pointer"
+            >
+              <div className="flex items-center justify-between mb-3">
+                <div className="font-medium">{item.title}</div>
+                <div className="text-xs text-white/40">{item.status}</div>
+              </div>
+              <div className="text-sm text-white/50 leading-relaxed">
+                {item.desc}
+              </div>
+            </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Right */}
+        <div
+          className="p-8 flex flex-col justify-between bg-gradient-to-br from-white/[0.02] to-transparent"
+        >
+          <div>
+            <div
+              className="inline-flex rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.2em] text-white/50"
+            >
+              LatestExecutions.tsx
+            </div>
+
+            <h2
+              className="mt-6 text-4xl font-semibold tracking-tight max-w-2xl leading-tight"
+            >
+              You are editing a table connected to a Snowflake query.
+            </h2>
+
+            <p className="mt-5 text-lg text-white/60 max-w-2xl leading-relaxed">
+              This filter updates the Coverage API DTO which eventually modifies
+              a Snowflake aggregation query.
+            </p>
+          </div>
+
+          {/* Flow */}
+          <div
+            className="mt-14 rounded-[32px] border border-white/10 bg-black/30 p-6"
+          >
+            <div
+              className="text-sm text-white/40 mb-5 uppercase tracking-[0.2em]"
+            >
+              Runtime Journey
+            </div>
+
+            <div
+              className="flex flex-wrap items-center gap-3 text-sm md:text-base"
+            >
+              {[ 'User opens dashboard', 'React Table', 'Coverage API',
+              'Snowflake Query', 'Coverage Results', ].map((step, i) => (
+              <div key="{i}" className="flex items-center gap-3">
+                <div
+                  className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 whitespace-nowrap"
+                >
+                  {step}
+                </div>
+                {i !== 4 && (
+                <div className="text-white/20 text-xl">→</div>
+                )}
+              </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* Problem */}
+  <section
+    id="problem"
+    className="relative z-10 px-8 py-28 border-t border-white/10"
+  >
+    <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-start">
+      <div>
+        <div className="text-sm uppercase tracking-[0.2em] text-white/40 mb-6">
+          The Problem
+        </div>
+
+        <h2
+          className="text-4xl md:text-6xl font-semibold tracking-tight leading-[1]"
+        >
+          Developers are shipping code they do not understand.
+        </h2>
+      </div>
+
+      <div className="space-y-8 text-lg text-white/60 leading-relaxed">
+        <p>
+          AI coding agents solved speed.
+          <br />
+          They destroyed comprehension.
+        </p>
+
+        <p>
+          Features get built in minutes.
+          <br />
+          Mental models never get built at all.
+        </p>
+
+        <p>
+          Memor reconstructs the understanding developers used to gain naturally
+          while building software slowly.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  {/* Philosophy */}
+  <section
+    id="vision"
+    className="relative z-10 px-8 py-28 border-t border-white/10"
+  >
+    <div className="max-w-7xl mx-auto">
+      <div className="max-w-4xl">
+        <div className="text-sm uppercase tracking-[0.2em] text-white/40 mb-6">
+          Philosophy
+        </div>
+
+        <h2
+          className="text-4xl md:text-6xl leading-[1] tracking-tight font-semibold"
+        >
+          Memor is the cognitive layer between humans and AI-generated software.
+        </h2>
+      </div>
+
+      <div className="grid md:grid-cols-3 gap-6 mt-20">
+        {[ { title: 'Orientation', desc: 'Understand what the product does and
+        where your task lives.', }, { title: 'Flow Awareness', desc: 'See how
+        data, APIs, services and systems connect together.', }, { title:
+        'Confident Shipping', desc: 'Know what your changes affect before the
+        reviewer tells you.', }, ].map((card, i) => (
+        <div
+          key="{i}"
+          className="rounded-[32px] border border-white/10 bg-white/[0.03] p-8"
+        >
+          <div className="text-2xl font-semibold tracking-tight mb-4">
+            {card.title}
+          </div>
+          <p className="text-white/60 leading-relaxed text-lg">{card.desc}</p>
+        </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {/* Footer */}
+  <footer className="relative z-10 px-8 py-12 border-t border-white/10">
+    <div
+      className="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-6"
+    >
+      <div>
+        <div className="text-xl font-semibold tracking-tight">Memor</div>
+        <div className="text-white/40 mt-2">
+          Built for developers who still want to understand what they build.
+        </div>
+      </div>
+
+      <button
+        className="rounded-2xl bg-white text-black px-6 py-4 font-medium hover:scale-[1.02] transition"
+      >
+        Join Early Access
+      </button>
+    </div>
+  </footer>
+</div>
+) }
