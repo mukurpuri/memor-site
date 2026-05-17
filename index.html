@@ -1,275 +1,609 @@
-export default function MemorHomepage() { return (
-<div className="min-h-screen bg-black text-white overflow-hidden">
-  {/* Background */}
-  <div
-    className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(80,80,255,0.18),transparent_40%)]"
-  />
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Memor — Understand Software</title>
 
-  {/* Navbar */}
-  <header
-    className="relative z-10 flex items-center justify-between px-8 py-6 border-b border-white/10 backdrop-blur-xl"
-  >
-    <div className="flex items-center gap-3">
-      <div
-        className="w-9 h-9 rounded-2xl bg-white text-black flex items-center justify-center font-bold text-lg"
-      >
-        M
-      </div>
-      <span className="text-xl font-semibold tracking-tight">Memor</span>
-    </div>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
 
-    <nav className="hidden md:flex items-center gap-8 text-sm text-white/70">
-      <a href="#problem" className="hover:text-white transition">Problem</a>
-      <a href="#product" className="hover:text-white transition">Product</a>
-      <a href="#developers" className="hover:text-white transition"
-        >Developers</a
-      >
-      <a href="#vision" className="hover:text-white transition">Vision</a>
-    </nav>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-    <button
-      className="rounded-2xl bg-white text-black px-5 py-2 text-sm font-medium hover:scale-[1.02] transition"
-    >
-      Join Waitlist
-    </button>
-  </header>
+      body {
+        font-family: "Inter", sans-serif;
+        background: #050505;
+        color: white;
+        overflow-x: hidden;
+        line-height: 1.5;
+      }
 
-  {/* Hero */}
-  <section className="relative z-10 px-8 pt-28 pb-24 max-w-7xl mx-auto">
-    <div className="max-w-5xl">
-      <div
-        className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/70 mb-8"
-      >
-        Built for developers who build software
-      </div>
+      .bg-glow {
+        position: fixed;
+        inset: 0;
+        background:
+          radial-gradient(
+            circle at top,
+            rgba(88, 101, 242, 0.22),
+            transparent 35%
+          ),
+          radial-gradient(
+            circle at bottom right,
+            rgba(255, 255, 255, 0.06),
+            transparent 30%
+          );
+        pointer-events: none;
+        z-index: -1;
+      }
 
-      <h1
-        className="text-5xl md:text-7xl leading-[0.95] tracking-tight font-semibold max-w-6xl"
-      >
-        AI writes code.
-        <br />
-        Memor helps you
-        <span className="text-white/40"> understand it.</span>
-      </h1>
+      .container {
+        width: 100%;
+        max-width: 1250px;
+        margin: 0 auto;
+        padding: 0 32px;
+      }
 
-      <p
-        className="mt-8 text-lg md:text-2xl text-white/60 max-w-3xl leading-relaxed"
-      >
-        Cursor helps developers do.
-        <br />
-        Memor helps developers see.
-      </p>
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        backdrop-filter: blur(20px);
+        background: rgba(5, 5, 5, 0.72);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
 
-      <div className="mt-10 flex flex-wrap gap-4">
-        <button
-          className="rounded-2xl bg-white text-black px-6 py-4 font-medium hover:scale-[1.02] transition"
-        >
-          Request Early Access
-        </button>
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 22px 0;
+      }
 
-        <button
-          className="rounded-2xl border border-white/10 bg-white/5 px-6 py-4 text-white/80 hover:bg-white/10 transition"
-        >
-          Watch Product Demo
-        </button>
-      </div>
-    </div>
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 700;
+        font-size: 20px;
+        letter-spacing: -0.04em;
+      }
 
-    {/* Main Visual */}
-    <div
-      className="mt-24 rounded-[36px] border border-white/10 bg-white/[0.03] backdrop-blur-xl overflow-hidden shadow-2xl"
-    >
-      <div
-        className="border-b border-white/10 px-6 py-4 flex items-center gap-3 text-sm text-white/50"
-      >
-        <div className="w-3 h-3 rounded-full bg-white/20" />
-        <div className="w-3 h-3 rounded-full bg-white/20" />
-        <div className="w-3 h-3 rounded-full bg-white/20" />
-        <span className="ml-3">memor.dev</span>
-      </div>
+      .logo-box {
+        width: 38px;
+        height: 38px;
+        border-radius: 14px;
+        background: white;
+        color: black;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+      }
 
-      <div className="grid lg:grid-cols-[340px_1fr] min-h-[620px]">
-        {/* Left */}
-        <div className="border-r border-white/10 p-6 bg-black/40">
-          <div
-            className="text-xs uppercase tracking-[0.2em] text-white/40 mb-6"
-          >
-            System Understanding
-          </div>
+      .nav-links {
+        display: flex;
+        gap: 34px;
+        color: rgba(255, 255, 255, 0.58);
+        font-size: 14px;
+      }
 
-          <div className="space-y-4">
-            {[ { title: 'Coverage Dashboard', desc: 'When QA opens latest test
-            coverage', status: 'active', }, { title: 'Coverage API', desc:
-            'Handles Snowflake aggregation queries', status: 'critical', }, {
-            title: 'Queue Workers', desc: 'Processes async coverage refresh
-            jobs', status: 'stable', }, ].map((item, index) => (
-            <div
-              key="{index}"
-              className="rounded-3xl border border-white/10 bg-white/[0.03] p-5 hover:bg-white/[0.06] transition cursor-pointer"
-            >
-              <div className="flex items-center justify-between mb-3">
-                <div className="font-medium">{item.title}</div>
-                <div className="text-xs text-white/40">{item.status}</div>
-              </div>
-              <div className="text-sm text-white/50 leading-relaxed">
-                {item.desc}
-              </div>
-            </div>
-            ))}
-          </div>
+      .nav-links a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .nav-links a:hover {
+        color: white;
+      }
+
+      .hero {
+        padding: 120px 0 100px;
+      }
+
+      .eyebrow {
+        display: inline-block;
+        padding: 10px 18px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.04);
+        color: rgba(255, 255, 255, 0.62);
+        font-size: 14px;
+        margin-bottom: 30px;
+      }
+
+      h1 {
+        font-size: clamp(56px, 10vw, 110px);
+        line-height: 0.95;
+        letter-spacing: -0.07em;
+        max-width: 1000px;
+        font-weight: 800;
+      }
+
+      .muted {
+        color: rgba(255, 255, 255, 0.35);
+      }
+
+      .hero-sub {
+        margin-top: 36px;
+        font-size: 24px;
+        color: rgba(255, 255, 255, 0.62);
+        max-width: 760px;
+        line-height: 1.45;
+      }
+
+      .hero-buttons {
+        display: flex;
+        gap: 16px;
+        margin-top: 42px;
+        flex-wrap: wrap;
+      }
+
+      .btn-primary {
+        background: white;
+        color: black;
+        border: none;
+        border-radius: 18px;
+        padding: 18px 28px;
+        font-weight: 600;
+        font-size: 15px;
+        cursor: pointer;
+      }
+
+      .btn-secondary {
+        background: rgba(255, 255, 255, 0.04);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 18px;
+        padding: 18px 28px;
+        font-weight: 500;
+        font-size: 15px;
+        cursor: pointer;
+      }
+
+      .understanding-window {
+        margin-top: 90px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 36px;
+        overflow: hidden;
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(20px);
+        box-shadow: 0 20px 80px rgba(0, 0, 0, 0.45);
+      }
+
+      .window-top {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 18px 24px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.16);
+      }
+
+      .window-layout {
+        display: grid;
+        grid-template-columns: 320px 1fr;
+        min-height: 650px;
+      }
+
+      .sidebar {
+        border-right: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 28px;
+        background: rgba(0, 0, 0, 0.22);
+      }
+
+      .sidebar-label {
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        color: rgba(255, 255, 255, 0.35);
+        margin-bottom: 28px;
+      }
+
+      .system-card {
+        padding: 22px;
+        border-radius: 26px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        margin-bottom: 16px;
+      }
+
+      .system-title {
+        font-weight: 600;
+        margin-bottom: 8px;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .system-desc {
+        color: rgba(255, 255, 255, 0.52);
+        font-size: 14px;
+        line-height: 1.5;
+      }
+
+      .main-panel {
+        padding: 42px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .file-pill {
+        display: inline-block;
+        padding: 10px 16px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.04);
+        font-size: 12px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.5);
+      }
+
+      .main-title {
+        margin-top: 30px;
+        font-size: clamp(36px, 5vw, 60px);
+        line-height: 1;
+        letter-spacing: -0.06em;
+        max-width: 760px;
+      }
+
+      .main-desc {
+        margin-top: 22px;
+        font-size: 20px;
+        color: rgba(255, 255, 255, 0.58);
+        line-height: 1.6;
+        max-width: 760px;
+      }
+
+      .journey-box {
+        margin-top: 60px;
+        padding: 28px;
+        border-radius: 28px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(0, 0, 0, 0.25);
+      }
+
+      .journey-label {
+        font-size: 12px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.35);
+        margin-bottom: 24px;
+      }
+
+      .journey-flow {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      .flow-step {
+        padding: 14px 18px;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        font-size: 15px;
+        white-space: nowrap;
+      }
+
+      .arrow {
+        color: rgba(255, 255, 255, 0.2);
+        font-size: 22px;
+      }
+
+      section {
+        padding: 140px 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .section-label {
+        font-size: 12px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.35);
+        margin-bottom: 26px;
+      }
+
+      .section-title {
+        font-size: clamp(42px, 6vw, 72px);
+        line-height: 1;
+        letter-spacing: -0.06em;
+        max-width: 1000px;
+      }
+
+      .section-text {
+        margin-top: 34px;
+        max-width: 780px;
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 22px;
+        line-height: 1.7;
+      }
+
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 22px;
+        margin-top: 70px;
+      }
+
+      .feature-card {
+        padding: 34px;
+        border-radius: 30px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .feature-title {
+        font-size: 28px;
+        font-weight: 600;
+        margin-bottom: 18px;
+        letter-spacing: -0.04em;
+      }
+
+      .feature-text {
+        color: rgba(255, 255, 255, 0.58);
+        line-height: 1.7;
+        font-size: 17px;
+      }
+
+      footer {
+        padding: 60px 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .footer-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+      .footer-title {
+        font-size: 24px;
+        font-weight: 700;
+        letter-spacing: -0.05em;
+      }
+
+      .footer-text {
+        margin-top: 8px;
+        color: rgba(255, 255, 255, 0.45);
+      }
+
+      @media (max-width: 980px) {
+        .window-layout {
+          grid-template-columns: 1fr;
+        }
+
+        .sidebar {
+          border-right: none;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .nav-links {
+          display: none;
+        }
+
+        .main-panel {
+          padding: 28px;
+        }
+
+        .container {
+          padding: 0 22px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bg-glow"></div>
+
+    <header>
+      <div class="container navbar">
+        <div class="logo">
+          <div class="logo-box">M</div>
+          Memor
         </div>
 
-        {/* Right */}
-        <div
-          className="p-8 flex flex-col justify-between bg-gradient-to-br from-white/[0.02] to-transparent"
-        >
-          <div>
-            <div
-              className="inline-flex rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.2em] text-white/50"
-            >
-              LatestExecutions.tsx
-            </div>
+        <div class="nav-links">
+          <a href="#problem">Problem</a>
+          <a href="#product">Product</a>
+          <a href="#vision">Vision</a>
+        </div>
 
-            <h2
-              className="mt-6 text-4xl font-semibold tracking-tight max-w-2xl leading-tight"
-            >
-              You are editing a table connected to a Snowflake query.
-            </h2>
+        <button class="btn-primary">Join Waitlist</button>
+      </div>
+    </header>
 
-            <p className="mt-5 text-lg text-white/60 max-w-2xl leading-relaxed">
-              This filter updates the Coverage API DTO which eventually modifies
-              a Snowflake aggregation query.
-            </p>
+    <main>
+      <section class="hero">
+        <div class="container">
+          <div class="eyebrow">Built for developers who build software</div>
+
+          <h1>
+            AI writes code.
+            <br />
+            Memor helps you
+            <span class="muted">understand it.</span>
+          </h1>
+
+          <p class="hero-sub">
+            Cursor helps developers do.
+            <br />
+            Memor helps developers see.
+          </p>
+
+          <div class="hero-buttons">
+            <button class="btn-primary">Request Early Access</button>
+            <button class="btn-secondary">Watch Demo</button>
           </div>
 
-          {/* Flow */}
-          <div
-            className="mt-14 rounded-[32px] border border-white/10 bg-black/30 p-6"
-          >
-            <div
-              className="text-sm text-white/40 mb-5 uppercase tracking-[0.2em]"
-            >
-              Runtime Journey
+          <div class="understanding-window">
+            <div class="window-top">
+              <div class="dot"></div>
+              <div class="dot"></div>
+              <div class="dot"></div>
             </div>
 
-            <div
-              className="flex flex-wrap items-center gap-3 text-sm md:text-base"
-            >
-              {[ 'User opens dashboard', 'React Table', 'Coverage API',
-              'Snowflake Query', 'Coverage Results', ].map((step, i) => (
-              <div key="{i}" className="flex items-center gap-3">
-                <div
-                  className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 whitespace-nowrap"
-                >
-                  {step}
+            <div class="window-layout">
+              <div class="sidebar">
+                <div class="sidebar-label">System Understanding</div>
+
+                <div class="system-card">
+                  <div class="system-title">
+                    <span>Coverage Dashboard</span>
+                    <span
+                      style="color: rgba(255, 255, 255, 0.4); font-size: 13px"
+                      >active</span
+                    >
+                  </div>
+                  <div class="system-desc">
+                    Main frontend for QA coverage tracking.
+                  </div>
                 </div>
-                {i !== 4 && (
-                <div className="text-white/20 text-xl">→</div>
-                )}
+
+                <div class="system-card">
+                  <div class="system-title">
+                    <span>Coverage API</span>
+                    <span
+                      style="color: rgba(255, 255, 255, 0.4); font-size: 13px"
+                      >critical</span
+                    >
+                  </div>
+                  <div class="system-desc">
+                    Aggregates Snowflake coverage queries.
+                  </div>
+                </div>
+
+                <div class="system-card">
+                  <div class="system-title">
+                    <span>Queue Workers</span>
+                    <span
+                      style="color: rgba(255, 255, 255, 0.4); font-size: 13px"
+                      >stable</span
+                    >
+                  </div>
+                  <div class="system-desc">
+                    Processes background coverage refresh jobs.
+                  </div>
+                </div>
               </div>
-              ))}
+
+              <div class="main-panel">
+                <div>
+                  <div class="file-pill">LatestExecutions.tsx</div>
+
+                  <h2 class="main-title">
+                    You are editing a table connected to a Snowflake query.
+                  </h2>
+
+                  <p class="main-desc">
+                    This filter updates the Coverage API DTO which eventually
+                    modifies a Snowflake aggregation query.
+                  </p>
+                </div>
+
+                <div class="journey-box">
+                  <div class="journey-label">Runtime Journey</div>
+
+                  <div class="journey-flow">
+                    <div class="flow-step">User opens dashboard</div>
+                    <div class="arrow">→</div>
+                    <div class="flow-step">React Table</div>
+                    <div class="arrow">→</div>
+                    <div class="flow-step">Coverage API</div>
+                    <div class="arrow">→</div>
+                    <div class="flow-step">Snowflake Query</div>
+                    <div class="arrow">→</div>
+                    <div class="flow-step">Coverage Results</div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
+      </section>
 
-  {/* Problem */}
-  <section
-    id="problem"
-    className="relative z-10 px-8 py-28 border-t border-white/10"
-  >
-    <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-start">
-      <div>
-        <div className="text-sm uppercase tracking-[0.2em] text-white/40 mb-6">
-          The Problem
+      <section id="problem">
+        <div class="container">
+          <div class="section-label">The Problem</div>
+
+          <h2 class="section-title">
+            Developers are shipping code they do not understand.
+          </h2>
+
+          <p class="section-text">
+            AI coding agents solved speed. They destroyed comprehension.
+            <br /><br />
+            Features get built in minutes. Mental models never get built at all.
+            <br /><br />
+            Memor reconstructs the understanding developers used to gain
+            naturally while building software slowly.
+          </p>
         </div>
+      </section>
 
-        <h2
-          className="text-4xl md:text-6xl font-semibold tracking-tight leading-[1]"
-        >
-          Developers are shipping code they do not understand.
-        </h2>
-      </div>
+      <section id="vision">
+        <div class="container">
+          <div class="section-label">Philosophy</div>
 
-      <div className="space-y-8 text-lg text-white/60 leading-relaxed">
-        <p>
-          AI coding agents solved speed.
-          <br />
-          They destroyed comprehension.
-        </p>
+          <h2 class="section-title">
+            Memor is the cognitive layer between humans and AI-generated
+            software.
+          </h2>
 
-        <p>
-          Features get built in minutes.
-          <br />
-          Mental models never get built at all.
-        </p>
+          <div class="feature-grid">
+            <div class="feature-card">
+              <div class="feature-title">Orientation</div>
+              <div class="feature-text">
+                Understand what the product does and where your task lives.
+              </div>
+            </div>
 
-        <p>
-          Memor reconstructs the understanding developers used to gain naturally
-          while building software slowly.
-        </p>
-      </div>
-    </div>
-  </section>
+            <div class="feature-card">
+              <div class="feature-title">Flow Awareness</div>
+              <div class="feature-text">
+                See how APIs, services, requests and systems connect together.
+              </div>
+            </div>
 
-  {/* Philosophy */}
-  <section
-    id="vision"
-    className="relative z-10 px-8 py-28 border-t border-white/10"
-  >
-    <div className="max-w-7xl mx-auto">
-      <div className="max-w-4xl">
-        <div className="text-sm uppercase tracking-[0.2em] text-white/40 mb-6">
-          Philosophy
-        </div>
-
-        <h2
-          className="text-4xl md:text-6xl leading-[1] tracking-tight font-semibold"
-        >
-          Memor is the cognitive layer between humans and AI-generated software.
-        </h2>
-      </div>
-
-      <div className="grid md:grid-cols-3 gap-6 mt-20">
-        {[ { title: 'Orientation', desc: 'Understand what the product does and
-        where your task lives.', }, { title: 'Flow Awareness', desc: 'See how
-        data, APIs, services and systems connect together.', }, { title:
-        'Confident Shipping', desc: 'Know what your changes affect before the
-        reviewer tells you.', }, ].map((card, i) => (
-        <div
-          key="{i}"
-          className="rounded-[32px] border border-white/10 bg-white/[0.03] p-8"
-        >
-          <div className="text-2xl font-semibold tracking-tight mb-4">
-            {card.title}
+            <div class="feature-card">
+              <div class="feature-title">Confident Shipping</div>
+              <div class="feature-text">
+                Know what your changes affect before the reviewer tells you.
+              </div>
+            </div>
           </div>
-          <p className="text-white/60 leading-relaxed text-lg">{card.desc}</p>
         </div>
-        ))}
-      </div>
-    </div>
-  </section>
+      </section>
+    </main>
 
-  {/* Footer */}
-  <footer className="relative z-10 px-8 py-12 border-t border-white/10">
-    <div
-      className="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-6"
-    >
-      <div>
-        <div className="text-xl font-semibold tracking-tight">Memor</div>
-        <div className="text-white/40 mt-2">
-          Built for developers who still want to understand what they build.
+    <footer>
+      <div class="container footer-content">
+        <div>
+          <div class="footer-title">Memor</div>
+          <div class="footer-text">
+            Built for developers who still want to understand what they build.
+          </div>
         </div>
-      </div>
 
-      <button
-        className="rounded-2xl bg-white text-black px-6 py-4 font-medium hover:scale-[1.02] transition"
-      >
-        Join Early Access
-      </button>
-    </div>
-  </footer>
-</div>
-) }
+        <button class="btn-primary">Join Early Access</button>
+      </div>
+    </footer>
+  </body>
+</html>
